@@ -7,6 +7,14 @@ app = Flask(__name__)
 with open('stacking_model.pkl', 'rb') as file:
     stacking_model = pickle.load(file)
 
+def classify_body_type(bmi, fat_percentage):
+    if bmi < 18.5 and fat_percentage < 20:
+        return 'Ectomorph'
+    elif 18.5 <= bmi < 24.9 and fat_percentage < 20:
+        return 'Mesomorph'
+    else:
+        return 'Endomorph'
+
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
@@ -37,7 +45,9 @@ def predict():
         bmi = weight_kg / (height_m ** 2)
 
         prediction = stacking_model.predict([input_data])[0]
-        result = {'Fat percentage': prediction, 'BMI':bmi}
+        body_type = classify_body_type(bmi, prediction)
+
+        result = {'Fat percentage': prediction, 'BMI':bmi, 'Body Type': body_type}
         return jsonify(result)
     except Exception as e:
         return jsonify({'error': str(e)})
