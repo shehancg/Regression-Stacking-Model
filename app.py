@@ -1,6 +1,10 @@
 import pickle
 import pandas as pd
 from flask import Flask, request, jsonify
+import warnings
+
+# Suppress warnings
+# warnings.filterwarnings("ignore", category=UserWarning)
 
 app = Flask(__name__)
 
