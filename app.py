@@ -41,14 +41,14 @@ def predict():
                       data.get('forearm'), 
                       data.get('wrist')]
         
-        weight_lb = data.get('weight')
-        height_in = data.get('height')
+        weight_kg = data.get('weight')
+        height_m = data.get('height')
 
         # Convert height to meters (inches to meters)
-        height_m = height_in * 0.0254
+        # height_m = height_in * 0.0254
 
         # Calculate BMI using weight in kilograms and height in meters
-        weight_kg = weight_lb * 0.45359237
+        # weight_kg = weight_lb * 0.45359237
 
         bmi = weight_kg / (height_m ** 2)
 
